@@ -1,39 +1,14 @@
  // Crie uma instância da fila
  let minhaLista = new LinkedList();
 
- function limpaDados(){
+function limpaDados(){
   txtnovaTarefa.value = "";
   txtnovaPrioridade.value = "";
   txtIndice.value = "";
  } 
- // Função para adicionar um elemento 
- function adicionarElemento() {
-    const descricao = document.getElementById("txtnovaTarefa");
-    const prioridade = document.getElementById("txtnovaPrioridade");
-    const indice = document.getElementById("txtIndice");
-    
-    if (descricao.value === "" || prioridade.value === "") {
-      alert("Preencha todos os campos antes de adicionar à fila!");
-      return;
-    }
-      const novaTarefa = new Tarefa(descricao.value, 
-                                    prioridade.value, 
-                                    obterDataAtual(), 
-                                    obterHoraAtual());
-      
-      minhaLista.addAtIndex(indice.value, novaTarefa);
-      mostrarLista();
-      descricao.value = "";     
-      prioridade.value = "";      
-      indice.value = "";
-      descricao.focus();
-      
-    
-    
-    // instanciar nova tarefa e inserir no indice especificado
- }
 // Função para adicionar um elemento ordenado
-  function adicionarOrdenado() {
+ //--------------------------------------------------------------------------------------------
+function adicionarOrdenado() {
     const descricao = document.getElementById("txtnovaTarefa").value.trim();
     const prioridade = document.getElementById("txtnovaPrioridade").value.trim();
   
@@ -75,7 +50,7 @@
  }
 //--------------------------------------------------------------------------------------------
  // Função para remover o primeiro elemento da fila
- function removerElemento() {
+function removerElemento() {
     if(minhaLista.isEmpty()) 
       alert("Lista vazia!");
     else{  
@@ -85,16 +60,6 @@
     }
       mostrarLista();
     
-}
-//--------------------------------------------------------------------------------------------
-function mostraProximo(){
-  const mensagem = document.getElementById("mensagem-remocao");
-  if(minhaLista.isEmpty()){
-    mensagem.innerHTML = "Proxima lista vazia!"
-  }else{
-    mensagem.innerHTML = "Proxima: "+minhaLista.getFirst().descricao;
-  }
-  mensagem.style.display = "block";
 }
 //--------------------------------------------------------------------------------------------
 function mostrarMensagemRemocao(tarefaRealizada) {
@@ -108,7 +73,7 @@ function mostrarMensagemRemocao(tarefaRealizada) {
   }
 //-------------------------------------------------------------------------------------------- 
 // Função para atualizar a exibição da fila
- function mostrarLista() {
+function mostrarLista() {
    const listaElemento = document.getElementById("list_listadeTarefas");
    const listaTarefa = document.getElementById("lblmostraTarefas");
    if (minhaLista.isEmpty()) {
@@ -125,20 +90,6 @@ function mostrarMensagemRemocao(tarefaRealizada) {
    }
  }
  //--------------------------------------------------------------------------------------------
-function tarefaMaisAntiga(){
-  let tarefaMaisAntiga =  minhaLista.getFirst();
-
-  minhaLista.forEach((tarefa) => {
-    const dataHoraTarefa = new Date(`${converterDataFormatoISO8601(tarefa.data)}T${tarefa.hora}`)
-    const dataHoraTarefaMaisAntiga = new Date(`${converterDataFormatoISO8601(tarefaMaisAntiga.data)}T${tarefaMaisAntiga.hora}`)
-
-    if(dataHoraTarefa < dataHoraTarefaMaisAntiga){
-      tarefaMaisAntiga = tarefa;
-    }
-  });
-  return tarefaMaisAntiga;
-}
-//--------------------------------------------------------------------------------------------
 //ver o inicio da fila
 function exibirPrimeiro(){
   if(minhaLista.getFirst()=== null){
@@ -155,6 +106,20 @@ function exibirUltimo(){
   }else{
     alert("Ultimo elemento da fila: "+minhaLista.getLast())
   }
+}
+ //--------------------------------------------------------------------------------------------
+function tarefaMaisAntiga(){
+  let tarefaMaisAntiga =  minhaLista.getFirst();
+
+  minhaLista.forEach((tarefa) => {
+    const dataHoraTarefa = new Date(`${converterDataFormatoISO8601(tarefa.data)}T${tarefa.hora}`)
+    const dataHoraTarefaMaisAntiga = new Date(`${converterDataFormatoISO8601(tarefaMaisAntiga.data)}T${tarefaMaisAntiga.hora}`)
+
+    if(dataHoraTarefa < dataHoraTarefaMaisAntiga){
+      tarefaMaisAntiga = tarefa;
+    }
+  });
+  return tarefaMaisAntiga;
 }
 //--------------------------------------------------------------------------------------------
 function exibirTarefaMaisAntiga(){
