@@ -1,6 +1,11 @@
  // Crie uma instância da fila
  let minhaLista = new LinkedList();
 
+ function limpaDados(){
+  txtnovaTarefa.value = "";
+  txtnovaPrioridade.value = "";
+  txtIndice.value = "";
+ } 
  // Função para adicionar um elemento 
  function adicionarElemento() {
     const descricao = document.getElementById("txtnovaTarefa");
@@ -27,15 +32,8 @@
     
     // instanciar nova tarefa e inserir no indice especificado
  }
-  // Função para adicionar um elemento ordenado
-
- function limpaDados(){
-  txtnovaTarefa.value = "";
-  txtnovaPrioridade.value = "";
-  txtIndice.value = "";
- } 
-
- function adicionarOrdenado() {
+// Função para adicionar um elemento ordenado
+  function adicionarOrdenado() {
     const descricao = document.getElementById("txtnovaTarefa").value.trim();
     const prioridade = document.getElementById("txtnovaPrioridade").value.trim();
   
@@ -62,11 +60,6 @@
        retorno = minhaLista.addFirst(novaTarefa);
        limpaDados();
     }
-    else if(item.prioridade>novaPrioridade&&retorno==false){
-      addAtIndex(indice,novaTarefa);
-      retorno = true;
-      indice++;
-    }
     else{
       minhaLista.forEach((item) => {
         if(novaPrioridade>=item.prioridade){
@@ -86,14 +79,30 @@
       alert("Lista vazia!");
     else{  
       // remover e mostrar mensagem de remocao
+      let rem = minhaLista.deleteFirst();
+      mostrarMensagemRemocao(rem);
     }
- }
-
+      mostrarLista();
+    
+}
+//--------------------------------------------------------------------------------------------
+function mostraProximo(){
+  const mensagem = document.getElementById("mensagem-remocao");
+  if(minhaLista.isEmpty()){
+    mensagem.innerHTML = "Proxima lista vazia!"
+  }else{
+    mensagem.innerHTML = "Proxima: "+minhaLista.getFirst().descricao;
+  }
+  mensagem.style.display = "block";
+}
 //--------------------------------------------------------------------------------------------
 function mostrarMensagemRemocao(tarefaRealizada) {
-    const mensagem = document.getElementById("mensagem-remocao");
-    mensagem.innerHTML ="Tarefa "+ tarefaRealizada.descricao + ", realizada em "; // apresentar a mensagem de remoção com dias e horas
-    mensagem.style.display = "block";
+    const mensagem2 = document.getElementById("mensagem-remocao");
+    const diasEspera = calcularDiferencaDias(tarefaRealizada.data, obterDataAtual());
+    const tempoEspera = calcularDiferencaHoras(tarefaRealizada.hora, obterHoraAtual());
+    //mostrar tempo para resolver com dias e horas
+    mensagem2.innerHTML ="Resolvida: Tarefa '"+ tarefaRealizada.descricao + "', realizada em "+diasEspera+" dias e "+tempoEspera+" horas.";
+    mensagem2.style.display = "block";
 
   }
 //-------------------------------------------------------------------------------------------- 
@@ -114,6 +123,39 @@ function mostrarMensagemRemocao(tarefaRealizada) {
         }); // for each percorre cada elemento da lista encadeada
    }
  }
+ //--------------------------------------------------------------------------------------------
+function tarefaMaisAntiga(){
+  let tarefaMaisAntiga =  minhaLista.getFirst();
+
+  minhaLista.forEach((tarefa) => {
+    const dataHoraTarefa = new Date(`${converterDataFormatoISO8601(tarefa.data)}T${tarefa.hora}`)
+    const dataHoraTarefaMaisAntiga = new Date(`${converterDataFormatoISO8601(tarefaMaisAntiga.data)}T${tarefaMaisAntiga.hora}`)
+
+    if(dataHoraTarefa < dataHoraTarefaMaisAntiga){
+      tarefaMaisAntiga = tarefa;
+    }
+  });
+  return tarefaMaisAntiga;
+}
+//--------------------------------------------------------------------------------------------
+//ver o inicio da fila
+function exibirPrimeia(){
+  if(minhaLista.getFirst()=== null){
+    alert("Lista vazia!");
+  }else{
+    alert("Primeiro elemento da fila: "+minhaLista.getFirst())
+  }
+}
+//--------------------------------------------------------------------------------------------
+function exibirTarefaMaisAntiga(){
+  const maisAntiga = tarefaMaisAntiga();
+
+  if(maisAntiga === null){
+    alert("Lista vazia!");
+  }else{
+    alert("Tarefa mais antiga: "+maisAntiga);
+  }
+}
 //--------------------------------------------------------------------------------------------
  // funcao data
  function obterDataAtual() {

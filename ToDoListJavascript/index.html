@@ -16,7 +16,8 @@
       <div class="jumbotron  text-light text-center">
         <h1 class="display-4"><i class="fa fa-list-ul" aria-hidden="true"></i> Controle de Tarefas - ToDo List</h1>
       </div>
-      <div id="mensagem-remocao" class="alert alert-warning mt-3" style="display: none;"></div>
+      <div id="mensagem-remocao" class="alert alert-warning mt-3">Resolvida:</div>
+
       <h2>Tarefas</h2>
         <p>Adicione tarefas na lista:</p>
         <div class="form-group">
@@ -40,6 +41,8 @@
         
         <button class="btn btn-info" onclick="adicionarOrdenado()">Adicionar tarefa</button>
         <button class="btn btn-warning" onclick="removerElemento()">Resolver tarefa</button>
+        <button class="btn btn-secondary" onclick="exibirTarefaMaisAntiga()">Mais Antiga</button>
+        <button class="btn btn-secondary" onclick="exibirPrimeia()">Primeira</button>
         <br />
         <br />
       </div>
