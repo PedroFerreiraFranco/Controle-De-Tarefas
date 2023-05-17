@@ -49,27 +49,25 @@ class LinkedList {
     return true;
   }
 
-  addAtIndex(posicao, data) {
-      if(posicao<=0)
-        return this.addFirst(data);
-      else if(posicao>=this.length)
-        return this.addLast(data);
-      
-        const newNode = new Node(data);
-        let noAtual = this.head;
-        let posAtual = 0;
-
-        while(posAtual < posicao-1){
-          noAtual = noAtual.next;
-          posAtual++;
-        }//fim while
-        newNode.prev = noAtual;
-        newNode.next = noAtual.next;
-        noAtual.next = newNode;
-        newNode.prox.prev = newNode
-        this.length++;
-        return true;
-    }
+  addAtIndex(posicao, data) { // add posicao
+    if(posicao<=0)
+      return this.addFirst(data);
+    if(posicao>=this.length)
+      return this.addLast(data);
+    const newNode = new Node(data);
+    let noAtual = this.head;
+    let posAtual = 0;
+    while(posAtual < posicao-1){
+        noAtual = noAtual.next;
+        posAtual++;
+    } // fim while   
+    newNode.prev = noAtual;
+    newNode.next = noAtual.next;
+    noAtual.next = newNode;
+    newNode.next.prev = newNode;
+    this.length++;
+    return true;
+}// fim addAtIndex
 //------------------------------------------------------------  
 deleteFirst() {
 

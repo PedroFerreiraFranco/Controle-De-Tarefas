@@ -66,6 +66,7 @@
         indice++;
       }
     });
+    console.log(indice);
     minhaLista.addAtIndex(indice, novaTarefa);
     limpaDados();
     }
@@ -139,11 +140,20 @@ function tarefaMaisAntiga(){
 }
 //--------------------------------------------------------------------------------------------
 //ver o inicio da fila
-function exibirPrimeia(){
+function exibirPrimeiro(){
   if(minhaLista.getFirst()=== null){
     alert("Lista vazia!");
   }else{
     alert("Primeiro elemento da fila: "+minhaLista.getFirst())
+  }
+}
+//--------------------------------------------------------------------------------------------
+//ver o fim da fila
+function exibirUltimo(){
+  if(minhaLista.getLast()=== null){
+    alert("Lista vazia!");
+  }else{
+    alert("Ultimo elemento da fila: "+minhaLista.getLast())
   }
 }
 //--------------------------------------------------------------------------------------------
